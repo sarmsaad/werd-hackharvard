@@ -8,7 +8,7 @@ from pymongo import MongoClient
 
 l = logging.getLogger(__name__)
 
-client = MongoClient()
+client = MongoClient(host="ec2-34-207-92-4.compute-1.amazonaws.com", port=27019)
 db = client["word"]
 
 
@@ -25,22 +25,22 @@ def insert(kind, data, key=None, mode="gen"):
     col = kind
 
     # Check if the key already exist
-    if db[col].find_one({"_id": key}):
-        l.debug("Key %s already exist in col %s.", key, col)
-        if mode == "upsert":
-            # Overwrite the key
-            db[col].update_one({"_id": key}, data, upsert=True)
-        elif mode == "incr":
-            # Only work on integer key. Increment by one.
-            # Assume that we have key that are monotonically increasing.
-            key_ins = int(key) + 1
-            data["_id"] = key_ins
-            db[col].insert_one(data)
-        elif mode == "gen":
-            # Let mongoDB generate the key
-            db[col].insert_one(data)
-        else:
-            raise Exception("Invalid mode of insertion")
+    if mode == "upsert":
+        # Overwrite the key
+        return db[col].replace_one({"_id": key}, data, upsert=True)
+    elif mode == "incr":
+        # Only work on integer key. Increment by one.
+        # Assume that we have key that are monotonically increasing.
+        key_ins = int(key) + 1
+        data["_id"] = key_ins
+        return db[col].insert_one(data)
+    elif mode == "gen":
+        # Let mongoDB generate the key
+        return db[col].insert_one(data)
+    else:
+        raise Exception("Invalid mode of insertion")
+
+
 
 
 

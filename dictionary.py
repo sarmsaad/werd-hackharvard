@@ -14,11 +14,12 @@ import string
 
 from pprint import pprint as print
 
-from word.db import insert
+from word.db import insert, db
 
 from nltk.tokenize import word_tokenize
 
 PUNC = string.punctuation
+
 
 class Sentence:
     """
@@ -43,7 +44,7 @@ class Sentence:
         Store the sentence into database.
 
         """
-        insert(kind="sen", data=self.to_dict())
+        return insert(kind="sen", data=self.to_dict())
 
     def to_dict(self):
         """
@@ -98,6 +99,40 @@ class Sentence:
         return self.word_count
 
 
+class Word:
+    def __init__(self, word, video_id):
+        self.word = word
+        self.video_id = video_id
+
+    def upsert(self):
+        """
+        Update the word or insert the word into the database
+
+        :return:
+        """
+
+        wrdb = db["words"].find_one({"_id": self.word})
+        if wrdb:
+            # The word currently exist in the database
+            wrdb["videoIds"].append(self.video_id)
+            wrdb["videoId"] = ",".join(wrdb["videoIds"])
+            return insert(kind="words", data=wrdb, key=self.word, mode="upsert")
+        else:
+            wrdb = {
+                "_id": self.word,
+                "videoIds": [self.video_id],
+                "videoId": ",".join([self.video_id]),
+            }
+            return insert(kind="words", data=wrdb)
+
+
 if __name__ == '__main__':
-    test_sent = Sentence("The quick brown fox jumps over the lazy dog.", "test")
-    print(test_sent.to_dict())
+    # test_sent = Sentence("The quick brown fox jumps over the lazy dog.", "test")
+    # print(test_sent.to_dict())
+    # print(test_sent.store())
+    test_word = Word("genuine", "testvideoid")
+    test_word2 = Word("genuine", "video_id3")
+    test_word3 = Word("genuine", "video_id4")
+    print(test_word.upsert())
+    print(test_word2.upsert())
+    print(test_word3.upsert())
