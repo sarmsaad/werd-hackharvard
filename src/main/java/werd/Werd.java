@@ -33,8 +33,8 @@ public class Werd{
 
     public Werd(String word){
       this.word = word;
-      this.results();
       this.number = 0;
+      this.results();
     }
 
     public String getWord(){
@@ -50,7 +50,7 @@ public class Werd{
       MongoClient mongoClient = new MongoClient(connectionString);
       MongoDatabase database = mongoClient.getDatabase("word");
       MongoCollection<Document> collection = database.getCollection("words");
-      Document myDoc = collection.find(eq("_id","genuine")).first();
+      Document myDoc = collection.find(eq("_id",word)).first();
       String[] str = myDoc.getString("videoId").split(",");
       int len = str.length;
       if(len > 0){
