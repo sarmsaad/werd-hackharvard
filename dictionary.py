@@ -10,8 +10,15 @@ video. We going to achieve this by tokenising all the text.
 - This is different from the API for the interface of our project. This is for providing the dictionary functionality
 of our project.
 """
+import string
+
+from pprint import pprint as print
+
 from word.db import insert
-from nltk import SnowballStemmer, tokenize
+
+from nltk.tokenize import word_tokenize
+
+PUNC = string.punctuation
 
 class Sentence:
     """
@@ -28,6 +35,8 @@ class Sentence:
 
         self.text = text
         self.video_id = video_id
+        self.tokens = self.tokenise()
+        self.word_count = self.count_token()
 
     def store(self):
         """
@@ -46,7 +55,9 @@ class Sentence:
         return {
             "kind": "Sentence",
             "video_id": self.video_id,
-            "text": self.text
+            "text": self.text,
+            "tokens": self.tokens,
+            "word_count": self.word_count
         }
 
     def tokenise(self):
@@ -60,7 +71,31 @@ class Sentence:
         # Lowercase everything
         text = self.text.lower()
 
+        # Tokenise text into words
+        tokens = word_tokenize(text)
 
+        # Remove all punctuations
+        tokens = [token for token in tokens if token not in PUNC]
+
+        self.tokens = tokens
+        return self.tokens
+
+    def count_token(self):
+        """
+        Count the words in the sentence's tokens
+
+        :return: word count
+        :rtype: dict
+        """
+
+        # Make sure we have a list of tokens
+        if not self.tokens:
+            self.tokens = self.tokenise()
+
+        wc = {w: self.tokens.count(w) for w in set(self.tokens)}
+
+        self.word_count = wc
+        return self.word_count
 
 
 if __name__ == '__main__':
