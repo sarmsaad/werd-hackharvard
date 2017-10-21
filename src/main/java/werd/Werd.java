@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Werd{
 
     public String word;
+    public int number;
     public String result1;
     public String result2;
     public String result3;
@@ -33,25 +34,54 @@ public class Werd{
     public Werd(String word){
       this.word = word;
       this.results();
+      this.number = 0;
     }
 
     public String getWord(){
       return word;
     }
 
+    public int getNumber(){
+      return number;
+    }
+
     public void results(){
-      // MongoClient mongoClient = new MongoClient( "ec2-34-207-92-4.compute-1.amazonaws.com" , 27019 );
       MongoClientURI connectionString = new MongoClientURI("mongodb://ec2-34-207-92-4.compute-1.amazonaws.com:27019");
       MongoClient mongoClient = new MongoClient(connectionString);
       MongoDatabase database = mongoClient.getDatabase("word");
       MongoCollection<Document> collection = database.getCollection("words");
       Document myDoc = collection.find(eq("_id","genuine")).first();
       String[] str = myDoc.getString("videoId").split(",");
-      result1 = str[0];
-      result2 = str[1];
-      result3 = str[2];
-      // result4 = srch.videoID[3];
-      // result5 = srch.videoID[4];
+      int len = str.length;
+      if(len > 0){
+        result1 = str[0];
+        number++;
+        len--;
+        if(len>0){
+          result2 = str[1];
+          number++;
+          len--;
+          if(len>0){
+            result3 = str[2];
+            number++;
+            len--;
+            if(len>0){
+              result4 = str[3];
+              number++;
+              len--;
+              if(len>0){
+                result5 = str[4];
+                number++;
+                len--;
+              }
+            }
+          }
+        }
+      }
+
+
+
+
     }
 
 }
