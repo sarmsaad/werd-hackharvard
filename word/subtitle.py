@@ -3,13 +3,16 @@ Parse and manage the Youtube caption
 
 """
 
+import logging
+
 import pysrt
 import requests
-
 from word.db import insert
-from word.dictionary import Sentence
 from word.youtube import extract_info
 
+from word.word.dictionary import Sentence
+
+l = logging.getLogger(__name__)
 
 class Transcript:
     def __init__(self, video_info):
@@ -57,7 +60,7 @@ class Transcript:
         """
 
         for s in self.subtitle:
-            ss = Sentence(s.text, self.video_id)
+            ss = Sentence(s.text, self.video_id, s.start.to_time().isoformat(), s.end.to_time().isoformat())
             ss.store()
             ss.store_words()
 
@@ -77,6 +80,8 @@ class Transcript:
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
+
     video_info = extract_info("https://www.youtube.com/watch?v=ZZyNwGD3XE0")
     tr = Transcript(video_info)
     tr.print_subtitle()

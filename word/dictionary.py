@@ -10,17 +10,16 @@ video. We going to achieve this by tokenising all the text.
 - This is different from the API for the interface of our project. This is for providing the dictionary functionality
 of our project.
 """
+import logging
 import string
-
 from pprint import pprint as print
 
 from nltk import RegexpTokenizer
 
-from word.db import insert, db
-
-from nltk.tokenize import word_tokenize
+from word.word.db import insert, db
 
 PUNC = string.punctuation
+l = logging.getLogger(__name__)
 
 
 class Sentence:
@@ -28,7 +27,7 @@ class Sentence:
     Wrapper for a sentence or a long run of text.
     """
 
-    def __init__(self, text, video_id):
+    def __init__(self, text, video_id, start, end):
         """
         Create a new Sentence instance
 
@@ -36,9 +35,10 @@ class Sentence:
         :param str video_id: the video id of the video that the text came from
         """
 
-
         self.text = text
         self.video_id = video_id
+        self.start = start
+        self.end = end
         self.tokens = self.tokenise()
         self.word_count = self.count_token()
 
@@ -47,6 +47,7 @@ class Sentence:
         Store the sentence into database.
 
         """
+        l.debug("Storing sentence: %s", self.text)
         return insert(kind="sen", data=self.to_dict())
 
     def to_dict(self):
@@ -118,6 +119,7 @@ class Word:
 
         :return:
         """
+        l.debug("Update word: <%s>", self.word)
 
         wrdb = db["words"].find_one({"_id": self.word})
         if wrdb:
