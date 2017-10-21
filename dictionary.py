@@ -14,6 +14,8 @@ import string
 
 from pprint import pprint as print
 
+from nltk import RegexpTokenizer
+
 from word.db import insert, db
 
 from nltk.tokenize import word_tokenize
@@ -33,6 +35,7 @@ class Sentence:
         :param str text: the string of text
         :param str video_id: the video id of the video that the text came from
         """
+
 
         self.text = text
         self.video_id = video_id
@@ -71,9 +74,9 @@ class Sentence:
 
         # Lowercase everything
         text = self.text.lower()
-
+        tokenizer = RegexpTokenizer(r'\w+')
         # Tokenise text into words
-        tokens = word_tokenize(text)
+        tokens = tokenizer.tokenize(text)
 
         # Remove all punctuations
         tokens = [token for token in tokens if token not in PUNC]
@@ -98,6 +101,11 @@ class Sentence:
         self.word_count = wc
         return self.word_count
 
+    def store_words(self):
+        for token in self.tokens:
+            w = Word(token, self.video_id)
+            w.upsert()
+
 
 class Word:
     def __init__(self, word, video_id):
@@ -113,10 +121,11 @@ class Word:
 
         wrdb = db["words"].find_one({"_id": self.word})
         if wrdb:
-            # The word currently exist in the database
-            wrdb["videoIds"].append(self.video_id)
-            wrdb["videoId"] = ",".join(wrdb["videoIds"])
-            return insert(kind="words", data=wrdb, key=self.word, mode="upsert")
+            if self.video_id not in wrdb["videoIds"]:
+                # The word currently exist in the database
+                wrdb["videoIds"].append(self.video_id)
+                wrdb["videoId"] = ",".join(wrdb["videoIds"])
+                return insert(kind="words", data=wrdb, key=self.word, mode="upsert")
         else:
             wrdb = {
                 "_id": self.word,
