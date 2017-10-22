@@ -6,7 +6,8 @@ from pprint import pprint as print
 
 ydl_opts = {
     "noplaylist": True,  # For now, we will separate playlist and singles later
-    "writeautomaticsub": True
+    "writeautomaticsub": True,
+    "allsubtitles": True
 }
 
 
@@ -24,4 +25,5 @@ def extract_info(url):
 
 
 if __name__ == '__main__':
-    print(extract_info("https://www.youtube.com/watch?v=ZZyNwGD3XE0"))
+    # print(extract_info("https://www.youtube.com/watch?v=ZZyNwGD3XE0"))
+    print(extract_info("https://www.youtube.com/watch?v=B_tjKYvEziI&list=PLOGi5-fAu8bFgbO_BDoWRGRSeEKu6ZvuB"))
