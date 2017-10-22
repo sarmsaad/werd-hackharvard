@@ -133,7 +133,7 @@ class Word:
             if self.video_id not in wrdb["videoIds"]:
                 # The word currently exist in the database
                 wrdb["videoIds"].append({"vid": self.video_id, "sid": self.sen_id})
-                wrdb["videoId"] = ",".join([x["vid"] for x in wrdb["videoIds"]])
+                wrdb["videoId"] = ",".join(set([x["vid"] for x in wrdb["videoIds"]]))
                 wrdb["senId"] = ",".join([x["sid"] for x in wrdb["videoIds"]])
 
                 return insert(kind="words", data=wrdb, key=self.word, mode="upsert")
