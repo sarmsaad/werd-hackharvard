@@ -54,7 +54,7 @@ table {
 	text-align: center;
 	display: inline-block;
 	float:left;
-	right:40%;
+	right:39%;
 	font-family: "Arial";
 }
 input[type = "text"]{
@@ -76,7 +76,8 @@ input[type = "submit"]{
 
 #title { 
 	background: transparent;
-	font-family:"Alfa Slab One";
+	font-weight: bold;
+	font-family:"Alegreya";
 	font-size: 100px;
 	color:#50394c;
 	position: absolute;
