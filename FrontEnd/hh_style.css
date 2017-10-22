@@ -15,7 +15,6 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 article, aside, details, figcaption, figure,
@@ -49,11 +48,17 @@ table {
           box-sizing: border-box;
 }
 
-input{
-	position: relative;
+#inputs{
+	position: absolute;
+	top: 60%;
+	text-align: center;
+	display: inline-block;
+	float:left;
+	right:40%;
+	font-family: "Arial";
 }
 input[type = "text"]{
-	width: 25%;
+	width: 60%;
 	display: inline-block;
 	line-height: 1;
 
@@ -62,7 +67,7 @@ input[type = "text"]{
 
 input[type = "submit"]{
 	color:white;
-	background-color: blue;
+	background-color: #f18973;
 	border-radius: 5px;
 	display: inline-block;
 	line-height: 1;
@@ -71,7 +76,9 @@ input[type = "submit"]{
 
 #title { 
 	background: transparent;
-	font-weight: bold;
+	font-family:"Alfa Slab One";
+	font-size: 100px;
+	color:#50394c;
 	position: absolute;
   	left: 0;
   	top: 35%;
@@ -89,7 +96,6 @@ html, body {
 }
 
 body{
-	font-family: : "Franklin Gothic";
 	-webkit-font-smoothing: antialiased;
 	background: -webkit-radial-gradient(circle,  #ffe6b3,#ffcccc);
 	line-height: 1.3;
