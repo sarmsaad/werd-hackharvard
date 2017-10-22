@@ -88,7 +88,7 @@ class Transcript:
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     # video_info = extract_info("https://www.youtube.com/watch?v=lekCh_i32iE")
     # tr = Transcript(video_info)
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     # tr.store_subtitle()
     # tr.analyse()
 
-    info = extract_playlist("https://www.youtube.com/playlist?list=PLOGi5-fAu8bH_T9HhH9V2B5izEE4G5waV")
+    info = extract_playlist("https://www.youtube.com/results?sp=EgQQASgBUBQ%253D&search_query=ted+talk")
 
     for i in info["entries"]:
         tr = Transcript(video_info=i)
