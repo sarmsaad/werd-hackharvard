@@ -1,23 +1,27 @@
-body{
-	background: -webkit-radial-gradient(circle,  #ffe6b3,#ffcccc);
+body {
+    background: -webkit-radial-gradient(circle, #ffe6b3, #ffcccc);
 }
-#spacer{
-	padding-top: 20px;
+
+#spacer {
+    padding-top: 20px;
 }
-#theWord{
-	top:20px;
-	font-weight: bold;
-	font-family:"Alegreya";
-	font-size: 100px;
-	color: black;
-  	text-align: center;
+
+#theWord {
+    top: 20px;
+    font-weight: bold;
+    font-family: "Alegreya";
+    font-size: 100px;
+    color: black;
+    text-align: center;
 }
-.jumbotron{
-	opacity: .7;
+
+.jumbotron {
+    opacity: .7;
 }
-.btn-primary{
-	background-color: #5cbdaa;
-	color: #ffffff;
-	text-align: center;
-	border-style: none;
+
+.btn-primary {
+    background-color: #5cbdaa;
+    color: #ffffff;
+    text-align: center;
+    border-style: none;
 }
