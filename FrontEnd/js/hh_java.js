@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     lineColor: '#5cbdaa'
   });
   var intro = document.getElementById('home');
-  home.style.marginTop = - home.offsetHeight / 2 + 'px';
+  home.style.marginTop = - home.offsetHeight  + 'px';
 }, false);
 
 
