@@ -16,7 +16,7 @@ from pprint import pprint as print
 
 from nltk import RegexpTokenizer
 
-from word.word.db import insert, db
+from db import insert, db
 
 PUNC = string.punctuation
 l = logging.getLogger(__name__)
