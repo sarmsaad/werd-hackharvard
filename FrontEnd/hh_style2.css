@@ -1,0 +1,17 @@
+body{
+	background: -webkit-radial-gradient(circle,  #ffe6b3,#ffcccc);
+}
+#spacer{
+	padding-top: 20px;
+}
+#theWord{
+	top:20px;
+	font-weight: bold;
+	font-family:"Alegreya";
+	font-size: 100px;
+	color: black;
+  	text-align: center;
+}
+.jumbotron{
+	opacity: .7;
+}

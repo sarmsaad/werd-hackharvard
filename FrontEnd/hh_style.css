@@ -54,18 +54,24 @@ table {
 	text-align: center;
 	display: inline-block;
 	float:left;
-	right:39%;
+	right:42.5%;
 	font-family: "Arial";
 }
 input[type = "text"]{
-	width: 60%;
+	width: 80%;
 	display: inline-block;
 	line-height: 1;
+  padding-bottom: 15 px;
+
 
 }
 
+#spacer{
+  padding-bottom: 15px;
+}
 
 input[type = "submit"]{
+  top: 10px;
 	color:white;
 	background-color: #f18973;
 	border-radius: 5px;

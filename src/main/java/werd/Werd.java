@@ -19,17 +19,19 @@ import static com.mongodb.client.model.Updates.*;
 import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Werd{
 
     public String word;
     public int number;
-    public String result1;
-    public String result2;
-    public String result3;
-    public String result4;
-    public String result5;
+    public Video video1;
+    public Video video2;
+    public Video video3;
+    public Video video4;
+    public Video video5;
+
 
     public Werd(String word){
       this.word = word;
@@ -49,39 +51,86 @@ public class Werd{
       MongoClientURI connectionString = new MongoClientURI("mongodb://ec2-34-207-92-4.compute-1.amazonaws.com:27019");
       MongoClient mongoClient = new MongoClient(connectionString);
       MongoDatabase database = mongoClient.getDatabase("word");
-      MongoCollection<Document> collection = database.getCollection("words");
-      Document myDoc = collection.find(eq("_id",word)).first();
-      String[] str = myDoc.getString("videoId").split(",");
-      int len = str.length;
+      MongoCollection<Document> words = database.getCollection("words");
+      MongoCollection<Document> sentences = database.getCollection("sen"); //sskdhfkjdsh:90 sdfhjkjsdfh:21 of the collection
+      Document myDoc = words.find(eq("_id",word)).first();
+      String[] setID = myDoc.getString("senId").split(","); //lfkhgfhg:87 wejhwejkhr:90 style of the searched word
+      String[] videoID = myDoc.getString("videoId").split(",");
+      int lenTimes = setID.length; //the number of timestamps
+      int lenVideos = videoID.length; //the number we can use of different videos
+      String[] alreadyUsed = new String[5];
+      int len = videoID.length;
+
       if(len > 0){
-        result1 = str[0];
+        video1 = generate(setID,alreadyUsed,sentences,lenTimes,number);
         number++;
         len--;
+        alreadyUsed[0] = video1.ID;
         if(len>0){
-          result2 = str[1];
+          video2 = generate(setID,alreadyUsed,sentences,lenTimes,number);
           number++;
           len--;
+          alreadyUsed[1] = video2.ID;
           if(len>0){
-            result3 = str[2];
+            video3 = generate(setID,alreadyUsed,sentences,lenTimes,number);
             number++;
             len--;
+            alreadyUsed[2] = video3.ID;
             if(len>0){
-              result4 = str[3];
+              video4 = generate(setID,alreadyUsed,sentences,lenTimes,number);
               number++;
               len--;
+              alreadyUsed[3] = video4.ID;
               if(len>0){
-                result5 = str[4];
+                video5 = generate(setID,alreadyUsed,sentences,lenTimes,number);
                 number++;
                 len--;
+                alreadyUsed[4] = video5.ID;
               }
             }
           }
         }
       }
+    }
 
+    public Video generate(String[] setID, String[] usedVideos, MongoCollection<Document> sentences, int lenTimes, int lengthOFusedVideosAlready){
+      boolean notUsed = true;
+      int rand=0;
+      Random r = new Random();
+      //keep looping until finding a random index of a video timestamp where we didnt use the videoID before
+      while(notUsed){
+        rand = r.nextInt(lenTimes);
+        notUsed = this.usedBefore(usedVideos, setID[rand], lengthOFusedVideosAlready);
+      }
+      //once we select a random define a new video instance
+      String[] togetvidID = setID[rand].split(":");
+      String vidID = togetvidID[0];
+      Document searchTime = sentences.find(eq("_id", setID[rand])).first();
+      String start = searchTime.getString("start");
+      String end = searchTime.getString("end");
+      return new Video(vidID, toSecond(start), toSecond(end));
+    }
 
+    //return a timestamp of hh:mm:ss.000 into seconds only
+    public int toSecond(String time){
+      String[] arr = time.split(":");
+      int hour = Integer.parseInt(arr[0]);
+      int minut = Integer.parseInt(arr[1]) + hour * 60;
+      int sec = Integer.parseInt(arr[2].substring(0, 2)) + minut * 60;
+      return sec;
+    }
 
-
+    //return whether or not a selected video timestamp has been declared before or not
+    //returns true for using it before
+    public boolean usedBefore(String[] usedVideos, String videoToUse, int length){
+      String[] togetvidID = videoToUse.split(":");
+      String vidID = togetvidID[0];
+      for(int i = 0; i < length; i++){
+        if(vidID.equals(usedVideos[i])){
+          return true;
+        }
+      }
+      return false;
     }
 
 }
