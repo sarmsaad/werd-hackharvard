@@ -13,6 +13,8 @@ import logging
 
 import pysrt
 import requests
+import sys
+
 from db import insert
 from youtube import extract_info, extract_playlist
 
@@ -90,13 +92,17 @@ class Transcript:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
+    args = sys.argv[1:]
+
+    l.debug("Args: %s", args)
+
     # video_info = extract_info("https://www.youtube.com/watch?v=lekCh_i32iE")
     # tr = Transcript(video_info)
     # tr.print_subtitle()
     # tr.store_subtitle()
     # tr.analyse()
 
-    info = extract_playlist("https://www.youtube.com/results?sp=EgQQASgBUBQ%253D&search_query=ted+talk")
+    info = extract_playlist(args[-1])
 
     for i in info["entries"]:
         tr = Transcript(video_info=i)
