@@ -4,64 +4,58 @@
 	<meta charset="utf-8">
 	<meta name = "viewport" content="width-device-width, initial-scale = 1">
 	<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel = "stylesheet" href="hh_style2.css">
+	<link rel = "stylesheet" type="text/css" href="hh_style2.css">
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet'>
 	<script scr = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/jk/bootstrap.min.js"></script>
 	<script type="text/javascript" src="definition.js"></script>
+	<script type ="text/javascript" scr ="js/myJs2.js"></script>
 
 </head>
 <body>
 
 	<div class = "container" id = "header">
-		<div class = "jumbotron" align = "center">
-		<h1 class  = "display-3">
-		<?php
-			$word = $_POST["word"];
-			echo $word;
-		?>
-		</h1>
+		<div id = "spacer"></div>
+		<div class = "jumbotron" align = "center" >
+			<h1 class  = "theWord">
+			<?php
+				$word = $_GET["word"];
+				echo $word;
+			?>
+			</h1>
 		</div>
 		<!--
 			get the word from the search
 		-->
-		<h1 align = "center">
-		<?php
-		// This function grabs the definition of a word in XML format.
-		function grab_xml_definition ($word, $ref, $key)
-			{
+		<h3 align = "center" id = "def">
+			<?php
+				// This function grabs the definition of a word in XML format.
+				function grab_xml_definition ($word, $ref, $key)
+					{
 
-				$uri = "http://www.dictionaryapi.com/api/v1/references/" . urlencode($ref) . "/xml/" .
-							urlencode($word) . "?key=" . urlencode($key);
-		                		return file_get_contents($uri);
-			};
+						$uri = "http://www.dictionaryapi.com/api/v1/references/" . urlencode($ref) . "/xml/" .
+									urlencode($word) . "?key=" . urlencode($key);
+				                		return file_get_contents($uri);
+					};
 
-		$xdef = grab_xml_definition($_POST["word"], "collegiate", "883faa22-6561-4b2c-8525-64b8979f2953");
+				$xdef = grab_xml_definition($_GET["word"], "collegiate", "883faa22-6561-4b2c-8525-64b8979f2953");
 
-		$xml = simplexml_load_string($xdef) or die("Error: Cannot create object");
-		//first definition
-		$string = str_replace(':', '', $xml->entry->def->dt[0]);
-		echo $string . "<br>";
-		//second definition
-		$string = str_replace(':', '', $xml->entry->def->dt[1]);
-		echo $string . "<br>";
+				$xml = simplexml_load_string($xdef) or die("Error: Cannot create object");
+				//first definition
+				$string = str_replace(':', '', $xml->entry->def->dt[0]);
+				echo $string . "<br>";
+				//second definition
+				$string = str_replace(':', '', $xml->entry->def->dt[1]);
+				echo $string . "<br>";
 
-		?>
-		</h1>
+			?>
+		</h3>
 	</div>
 
-	<!--<div class = "container" id = "wordStuff">
 
-		<?php /*
-		 $definition = $_GET[];
-		 echo $definition. "</br>";
-		$json = file_get_contents("http...");
-		$description = json_decode($json);
-		echo $data->("token"); */
-		?>
-	</div> -->
 
-	<div class = "container" id = "vidGallery">
-		<?php
+	<div class = "container" id = "vidGallery" align = "center">
+		<!--<?php/*
 		$word = $_POST["word"];
 		$url = 'http://localhost:8080/werd?word=' . $word ;
 		$json = file_get_contents($url);
@@ -72,20 +66,17 @@
 		$result2 = $obj->{'result2'};
 		$result3 = $obj->{'result3'};
 		$result4 = $obj->{'result4'};
-		$result5 = $obj->{'result5'};
+		$result5 = $obj->{'result5'};*/
 		?>
+		-->
 		<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
+    	<div id="player" ></div>
 
-    <script>
+  	  <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
-			// var videoID1 = '<?php echo $result1 ?>';
-			// var videoID2 = "<?php echo $result2 ?>";
-			// var videoID3 = "<?php echo $result3 ?>";
-			// var videoID4 = "<?php echo $result4 ?>";
-			// var videoID5 = "<?php echo $result5 ?>";
+		
 
 
 			var videoID1 = 'Od2JXCeujEk';
@@ -186,7 +177,7 @@
       function stopVideo() {
         player.stopVideo();
       }
-    </script>
+   	 </script>
 
 
     <!-- <?php
@@ -209,9 +200,13 @@
 
 	-->
 	<footer>
-		<h5 align="right">
+		<h5 align="right" >
 		CopyRight Weerd!
 		</h5>
 	</footer>
+
+	<!--tweeninggg and other animations teehee-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+	<script type='text/javascript' src='js/jquery-1.11.1.min.js'></script>
 </body>
 </html>
