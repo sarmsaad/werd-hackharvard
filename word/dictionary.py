@@ -126,17 +126,24 @@ class Word:
 
         :return:
         """
+        if self.word.isdigit():
+            # Reject digits and numbers
+            l.debug("Reject word %s because is not a word.", self.word)
+            return
+
         l.debug("Update word: <%s>", self.word)
 
         wrdb = db["words"].find_one({"_id": self.word})
         if wrdb:
+            # The word currently exist in the database
             if self.video_id not in wrdb["videoIds"]:
-                # The word currently exist in the database
                 wrdb["videoIds"].append({"vid": self.video_id, "sid": self.sen_id})
                 wrdb["videoId"] = ",".join(set([x["vid"] for x in wrdb["videoIds"]]))
                 wrdb["senId"] = ",".join([x["sid"] for x in wrdb["videoIds"]])
 
                 return insert(kind="words", data=wrdb, key=self.word, mode="upsert")
+            else:
+                l.warning("%s is trying to update %s, which is already exist.", self.word, self.video_id)
         else:
             wrdb = {
                 "_id": self.word,
