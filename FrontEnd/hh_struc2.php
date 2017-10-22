@@ -4,15 +4,8 @@
 	<meta charset="utf-8">
 	<meta name = "viewport" content="width-device-width, initial-scale = 1">
 	<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<<<<<<< Updated upstream
 	<link rel = "stylesheet" type="text/css" href="hh_style2.css">
-=======
-<<<<<<< HEAD
-	<link rel = "stylesheet" href="hh_style.css">
-=======
 	<link rel = "stylesheet" type="text/css" href="hh_style2.css">
->>>>>>> origin/master
->>>>>>> Stashed changes
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet'>
 	<script scr = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/jk/bootstrap.min.js"></script>
@@ -63,13 +56,13 @@
 
 
 	<div class = "container" id = "vidGallery" align = "center">
-		<!--<?php/*
+		<?php
 		$word = $_POST["word"];
 		$url = 'http://localhost:8080/werd?word=' . $word ;
 		$json = file_get_contents($url);
 		$obj = json_decode($json);
 
-<<<<<<< HEAD
+
 		$number =(int)$obj->{'number'};
 		$video1 = "null";
 		$video2 = "null";
@@ -107,19 +100,8 @@
 				}
 			}
 		}
-=======
-		$number = $obj->{'number'};
-		$result1 = $obj->{'result1'};
-		$result2 = $obj->{'result2'};
-		$result3 = $obj->{'result3'};
-		$result4 = $obj->{'result4'};
-		$result5 = $obj->{'result5'};*/
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
+
 		?>
-		-->
 		<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     	<div id="player" ></div>
 
@@ -127,20 +109,13 @@
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
-<<<<<<< Updated upstream
-		
-=======
-<<<<<<< HEAD
+
 			var number = '<?php echo $number?>';
 			var videoID1 = '<?php echo $video1 ?>';
 			var videoID2 = "<?php echo $video2 ?>";
 			var videoID3 = "<?php echo $video3 ?>";
 			var videoID4 = "<?php echo $video4 ?>";
 			var videoID5 = "<?php echo $video5 ?>";
-=======
-		
->>>>>>> origin/master
->>>>>>> Stashed changes
 
 		  if (number == 0) {
 		  	var video = [];
