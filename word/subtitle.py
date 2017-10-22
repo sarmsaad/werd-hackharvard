@@ -96,7 +96,7 @@ if __name__ == '__main__':
     # tr.store_subtitle()
     # tr.analyse()
 
-    info = extract_playlist("https://www.youtube.com/playlist?list=PLOGi5-fAu8bFgbO_BDoWRGRSeEKu6ZvuB")
+    info = extract_playlist("https://www.youtube.com/playlist?list=PLOGi5-fAu8bH_T9HhH9V2B5izEE4G5waV")
 
     for i in info["entries"]:
         tr = Transcript(video_info=i)
