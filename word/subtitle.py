@@ -14,7 +14,7 @@ import logging
 import pysrt
 import requests
 from db import insert
-from youtube import extract_info
+from youtube import extract_info, extract_playlist
 
 from dictionary import Sentence
 
@@ -66,8 +66,9 @@ class Transcript:
         :return:
         """
 
-        for s in self.subtitle:
-            ss = Sentence(s.text, self.video_id, s.start.to_time().isoformat(), s.end.to_time().isoformat())
+        for ix, s in enumerate(self.subtitle):
+            ss = Sentence(text=s.text, video_id=self.video_id, start=s.start.to_time().isoformat(),
+                          end=s.end.to_time().isoformat(), sen_ix=ix)
             ss.store()
             ss.store_words()
 
@@ -81,7 +82,7 @@ class Transcript:
     def store_subtitle(self):
         insert(kind="subtitle", data={
             "video_id": self.video_id,
-            "video_info": video_info,
+            "video_info": self.video_info,
             "sentences": self.to_dict()
         })
 
@@ -89,8 +90,16 @@ class Transcript:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
 
-    video_info = extract_info("https://www.youtube.com/watch?v=lekCh_i32iE")
-    tr = Transcript(video_info)
-    tr.print_subtitle()
-    tr.store_subtitle()
-    tr.analyse()
+    # video_info = extract_info("https://www.youtube.com/watch?v=lekCh_i32iE")
+    # tr = Transcript(video_info)
+    # tr.print_subtitle()
+    # tr.store_subtitle()
+    # tr.analyse()
+
+    info = extract_playlist("https://www.youtube.com/playlist?list=PLOGi5-fAu8bFgbO_BDoWRGRSeEKu6ZvuB")
+
+    for i in info["entries"]:
+        tr = Transcript(video_info=i)
+        tr.print_subtitle()
+        tr.store_subtitle()
+        tr.analyse()

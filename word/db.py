@@ -40,10 +40,6 @@ def insert(kind, data, key=None, mode="gen"):
     else:
         raise Exception("Invalid mode of insertion")
 
-
-
-
-
 # def authenticate(cred='/Users/zui/kode/etc/hack/HackHarvard/word-277d2c088f30.json'):
 #     """
 #     Authenticate into Google Datastore

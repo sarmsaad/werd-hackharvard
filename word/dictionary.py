@@ -27,7 +27,7 @@ class Sentence:
     Wrapper for a sentence or a long run of text.
     """
 
-    def __init__(self, text, video_id, start, end):
+    def __init__(self, text, video_id, start, end, sen_ix):
         """
         Create a new Sentence instance
 
@@ -37,6 +37,8 @@ class Sentence:
 
         self.text = text
         self.video_id = video_id
+        self.sen_ix = sen_ix
+        self.sen_id = "{}:{}".format(self.video_id, self.sen_ix)
         self.start = start
         self.end = end
         self.tokens = self.tokenise()
@@ -62,7 +64,11 @@ class Sentence:
             "video_id": self.video_id,
             "text": self.text,
             "tokens": self.tokens,
-            "word_count": self.word_count
+            "word_count": self.word_count,
+            "start": self.start,
+            "end": self.end,
+            "_id": self.sen_id,
+            "senIx": self.sen_ix,
         }
 
     def tokenise(self):
@@ -104,14 +110,15 @@ class Sentence:
 
     def store_words(self):
         for token in self.tokens:
-            w = Word(token, self.video_id)
+            w = Word(token, self.video_id, self.sen_id)
             w.upsert()
 
 
 class Word:
-    def __init__(self, word, video_id):
+    def __init__(self, word, video_id, sen_id):
         self.word = word
         self.video_id = video_id
+        self.sen_id = sen_id
 
     def upsert(self):
         """
@@ -125,14 +132,17 @@ class Word:
         if wrdb:
             if self.video_id not in wrdb["videoIds"]:
                 # The word currently exist in the database
-                wrdb["videoIds"].append(self.video_id)
-                wrdb["videoId"] = ",".join(wrdb["videoIds"])
+                wrdb["videoIds"].append({"vid": self.video_id, "sid": self.sen_id})
+                wrdb["videoId"] = ",".join([x["vid"] for x in wrdb["videoIds"]])
+                wrdb["senId"] = ",".join([x["sid"] for x in wrdb["videoIds"]])
+
                 return insert(kind="words", data=wrdb, key=self.word, mode="upsert")
         else:
             wrdb = {
                 "_id": self.word,
-                "videoIds": [self.video_id],
+                "videoIds": [{"vid": self.video_id, "sid": self.sen_id}],
                 "videoId": ",".join([self.video_id]),
+                "senId": ",".join([self.sen_id]),
             }
             return insert(kind="words", data=wrdb)
 
