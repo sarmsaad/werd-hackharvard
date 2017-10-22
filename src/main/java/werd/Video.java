@@ -2,24 +2,23 @@ package werd;
 
 public class Video{
 
-  String videoID;
+  String ID;
   int startTime;
   int endTime;
 
   public Video(String id){
-    this.videoID = id;
+    this.ID = id;
     this.startTime = 0;
-    this.endTime = null;
   }
 
-  public Video(String id, int start, String end){
-    this.videoID = id;
+  public Video(String id, int start, int end){
+    this.ID = id;
     this.startTime = start;
     this.endTime = end;
   }
 
-  public String getVideoID(){
-    return videoID;
+  public String getID(){
+    return ID;
   }
 
   public int getStartTime(){
