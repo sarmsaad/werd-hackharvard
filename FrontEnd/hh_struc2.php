@@ -60,12 +60,58 @@
     <?php
     $word = $_GET["word"];
     $url = 'https://word-api-zkn.c9users.io/werd?word=' . $word;
-    $json = file_get_contents($url);
+    $json = @file_get_contents($url);
+    if ($json === FALSE) {
+        $no_content = TRUE;
+    }
+    //    $obj = json_decode($json);
+    //
+    //
+    //
+    //    $number = (int)$obj->{'number'};
+    //    $video1 = "null";
+    //    $video2 = "null";
+    //    $video3 = "null";
+    //    $video4 = "null";
+    //    $video5 = "null";
+    //
+    //    if ($number > 0) {
+    //        $video1 = $obj->{'video1'}->{'id'};
+    //        $start1 = $obj->{'video1'}->{'startTime'};
+    //        $end1 = $obj->{'video1'}->{'endTime'};
+    //        $number = $number - 1;
+    //        if ($number > 0) {
+    //            $video2 = $obj->{'video2'}->{'id'};
+    //            $start2 = $obj->{'video2'}->{'startTime'};
+    //            $end2 = $obj->{'video2'}->{'endTime'};
+    //            $number = $number - 1;
+    //            if ($number > 0) {
+    //                $video3 = $obj->{'video3'}->{'id'};
+    //                $start3 = $obj->{'video3'}->{'startTime'};
+    //                $end3 = $obj->{'video3'}->{'endTime'};
+    //                $number = $number - 1;
+    //                if ($number > 0) {
+    //                    $video4 = $obj->{'video4'}->{'id'};
+    //                    $start4 = $obj->{'video4'}->{'startTime'};
+    //                    $end4 = $obj->{'video4'}->{'endTime'};
+    //                    $number = $number - 1;
+    //                    if ($number > 0) {
+    //                        $video5 = $obj->{'video5'}->{'id'};
+    //                        $start5 = $obj->{'video5'}->{'startTime'};
+    //                        $end5 = $obj->{'video5'}->{'endTime'};
+    //                        $number = $number - 1;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
 
     ?>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
-
+    <?php if ($no_content === TRUE) {
+        echo "Sorry, we currently don't have a video associated with this word";
+    } ?>
     <script>
         // 2. This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
@@ -89,6 +135,7 @@
             vids.push(parsedJson.video5);
 
         }
+
 
 
         tag.src = "https://www.youtube.com/iframe_api";
