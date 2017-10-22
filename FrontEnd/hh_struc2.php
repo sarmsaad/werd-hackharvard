@@ -4,7 +4,15 @@
 	<meta charset="utf-8">
 	<meta name = "viewport" content="width-device-width, initial-scale = 1">
 	<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<<<<<<< Updated upstream
 	<link rel = "stylesheet" type="text/css" href="hh_style2.css">
+=======
+<<<<<<< HEAD
+	<link rel = "stylesheet" href="hh_style.css">
+=======
+	<link rel = "stylesheet" type="text/css" href="hh_style2.css">
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet'>
 	<script scr = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/jk/bootstrap.min.js"></script>
@@ -61,12 +69,55 @@
 		$json = file_get_contents($url);
 		$obj = json_decode($json);
 
+<<<<<<< HEAD
+		$number =(int)$obj->{'number'};
+		$video1 = "null";
+		$video2 = "null";
+		$video3 = "null";
+		$video4 = "null";
+		$video5 = "null";
+
+		if($number>0){
+			$video1 = $obj->{'video1'}->{'id'};
+			$start1 = $obj->{'video1'}->{'startTime'};
+			$end1 = $obj->{'video1'}->{'endTime'};
+			$number = $number - 1;
+			if($number>0){
+				$video2 = $obj->{'video2'}->{'id'};
+				$start2 = $obj->{'video2'}->{'startTime'};
+				$end2 = $obj->{'video2'}->{'endTime'};
+				$number = $number - 1;
+				if($number>0){
+					$video3 = $obj->{'video3'}->{'id'};
+					$start3 = $obj->{'video3'}->{'startTime'};
+					$end3 = $obj->{'video3'}->{'endTime'};
+					$number = $number - 1;
+					if($number>0){
+						$video4 = $obj->{'video4'}->{'id'};
+						$start4 = $obj->{'video4'}->{'startTime'};
+						$end4 = $obj->{'video4'}->{'endTime'};
+						$number = $number - 1;
+						if($number>0){
+							$video5 = $obj->{'video5'}->{'id'};
+							$start5 = $obj->{'video5'}->{'startTime'};
+							$end5 = $obj->{'video5'}->{'endTime'};
+							$number = $number - 1;
+						}
+					}
+				}
+			}
+		}
+=======
 		$number = $obj->{'number'};
 		$result1 = $obj->{'result1'};
 		$result2 = $obj->{'result2'};
 		$result3 = $obj->{'result3'};
 		$result4 = $obj->{'result4'};
 		$result5 = $obj->{'result5'};*/
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 		?>
 		-->
 		<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
@@ -76,14 +127,145 @@
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
+<<<<<<< Updated upstream
 		
+=======
+<<<<<<< HEAD
+			var number = '<?php echo $number?>';
+			var videoID1 = '<?php echo $video1 ?>';
+			var videoID2 = "<?php echo $video2 ?>";
+			var videoID3 = "<?php echo $video3 ?>";
+			var videoID4 = "<?php echo $video4 ?>";
+			var videoID5 = "<?php echo $video5 ?>";
+=======
+		
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 
+		  if (number == 0) {
+		  	var video = [];
+		  }else if (number == 1){
+				var start1 = '<?php echo $start1 ?>';
+				var end1 = '<?php echo $end1 ?>';
+				var video = [
+					{
+						vid: videoID1,
+						startSeconds: start1,
+						endSeconds: end
+					}
+				];
+			}else if (number == 2){
+				var start1 = '<?php echo $start1 ?>';
+				var end1 = '<?php echo $end1 ?>';
+				var start2 = '<?php echo $start2 ?>';
+				var end2 = '<?php echo $end2 ?>';
+				var video = [
+					{
+						vid: videoID1,
+						startSeconds: start1,
+						endSeconds: end1
+					},
+					{
+						vid: videoID2,
+						startSeconds: start2,
+						endSeconds: end2
+					}
+				];
+			}else if (number == 3){
+				var start1 = '<?php echo $start1 ?>';
+				var end1 = '<?php echo $end1 ?>';
+				var start2 = '<?php echo $start2 ?>';
+				var end2 = '<?php echo $end2 ?>';
+				var start3 = '<?php echo $start3 ?>';
+				var end3 = '<?php echo $end3 ?>';
+				var video = [
+					{
+						vid: videoID1,
+						startSeconds: start1,
+						endSeconds: end1
+					},
+					{
+						vid: videoID2,
+						startSeconds: start2,
+						endSeconds: end2
+					},
+					{
+						vid: videoID3,
+						startSeconds: start3,
+						endSeconds: end3
+					}
+				];
+			}else if (number == 4){
+				var start1 = '<?php echo $start1 ?>';
+				var end1 = '<?php echo $end1 ?>';
+				var start2 = '<?php echo $start2 ?>';
+				var end2 = '<?php echo $end2 ?>';
+				var start3 = '<?php echo $start3 ?>';
+				var end3 = '<?php echo $end3 ?>';
+				var start4 = '<?php echo $start4 ?>';
+				var end4 = '<?php echo $end4 ?>';
 
-			var videoID1 = 'Od2JXCeujEk';
-			var videoID2 = 'wFHNx770ahY';
-			var videoID3 = 'nQ0LRi18a3s';
-			var videoID4 = 'thUp8jTeJ9Q';
-			var videoID5 = 'eRJBkKe6L8o';
+				var video = [
+					{
+						vid: videoID1,
+						startSeconds: start1,
+						endSeconds: end1
+					},
+					{
+						vid: videoID2,
+						startSeconds: start2,
+						endSeconds: end2
+					},
+					{
+						vid: videoID3,
+						startSeconds: start3,
+						endSeconds: end3
+					},
+					{
+						vid: videoID4,
+						startSeconds: start4,
+						endSeconds: end4
+					}
+				];
+			}else if (number == 5){
+				var start1 = '<?php echo $start1 ?>';
+				var end1 = '<?php echo $end1 ?>';
+				var start2 = '<?php echo $start2 ?>';
+				var end2 = '<?php echo $end2 ?>';
+				var start3 = '<?php echo $start3 ?>';
+				var end3 = '<?php echo $end3 ?>';
+				var start4 = '<?php echo $start4 ?>';
+				var end4 = '<?php echo $end4 ?>';
+				var start5 = '<?php echo $start5 ?>';
+				var end5 = '<?php echo $end5 ?>';
+				var video = [
+					{
+						vid: videoID1,
+						startSeconds: start1,
+						endSeconds: end1
+					},
+					{
+						vid: videoID2,
+						startSeconds: start2,
+						endSeconds: end2
+					},
+					{
+						vid: videoID3,
+						startSeconds: start3,
+						endSeconds: end3
+					},
+					{
+						vid: videoID4,
+						startSeconds: start4,
+						endSeconds: end4
+					},
+					{
+						vid: videoID5,
+						startSeconds: start5,
+						endSeconds: end5
+					}
+				];
+			}
 
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
