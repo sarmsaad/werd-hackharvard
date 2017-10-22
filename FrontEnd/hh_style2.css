@@ -15,3 +15,9 @@ body{
 .jumbotron{
 	opacity: .7;
 }
+.btn-primary{
+	background-color: #5cbdaa;
+	color: #ffffff;
+	text-align: center;
+	border-style: none;
+}

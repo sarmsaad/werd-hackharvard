@@ -356,6 +356,10 @@
 	for the length of the array of videos returned take the thumbnail and display it on the the net
 
 	-->
+	<div class = "btnn" align = "center">
+		<a href="http://localhost/HackHard/hh_struc.html" role="button" id = "tryAgain" ><button type="button" class="btn btn-primary btn-lg">Try Again</button></a>
+	</div>
+	
 	<footer>
 		<h5 align="right" >
 		CopyRight Weerd!
